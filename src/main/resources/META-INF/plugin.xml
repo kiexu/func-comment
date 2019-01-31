@@ -4,11 +4,13 @@
     <vendor email="xujiaqi0830@163.com" url="https://github.com/kiexu/func-comment">Kie Xu</vendor>
 
     <description><![CDATA[<html>
-      A plugin to help add comment above function definition in goland.<br/>
+      A plugin to help add comment above function definition in GoLand.<br/>
     </html>]]></description>
 
     <!--http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html-->
     <depends>com.intellij.modules.lang</depends>
+
+    <idea-version since-build="172.0"/>
 
     <extensions defaultExtensionNs="com.intellij">
         <enterHandlerDelegate implementation="kiexujiaqi.funcComment.extensions.TriggerEnterHandlerDelegate"/>
