@@ -1,4 +1,4 @@
-package utils;
+package kiexujiaqi.funcComment.extensions.utils;
 
 import kiexujiaqi.funcComment.beans.FuncDeclInfo;
 import com.google.common.base.Joiner;
@@ -23,7 +23,8 @@ public class StringUtilTest {
                 "/**     ",
                 "  /**",
                 "",
-                "abc"
+                "abc",
+                ""
         );
         for (String input : inputList) {
             boolean hasSuffix = StringUtil.hasSuffix(input, suffix);
@@ -42,7 +43,8 @@ public class StringUtilTest {
             "func Add(    uid     int64     ) {",
             "func Add() {",
             "func Add(   ) {",
-            "func Add"
+            "func Add",
+            ""
     );
 
     @Test
