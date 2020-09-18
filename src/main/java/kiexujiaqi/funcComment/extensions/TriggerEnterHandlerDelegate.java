@@ -8,6 +8,7 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
 import com.intellij.openapi.util.Ref;
+import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiFile;
 import kiexujiaqi.funcComment.enums.FileExt;
 import kiexujiaqi.funcComment.constants.CommentSign;
@@ -18,6 +19,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+/**
+ * 用于方法上方回车自动添加注释
+ * todo 写入PSI
+ */
 public class TriggerEnterHandlerDelegate extends BaseEnterHandlerDelegate {
 
     private static final Logger LOG = Logger.getInstance(TriggerEnterHandlerDelegate.class);
@@ -34,7 +39,7 @@ public class TriggerEnterHandlerDelegate extends BaseEnterHandlerDelegate {
         String suspectText = DocumentUtil.getLineWhilePreprocessEnter(editor, 0);
 
         // 检查触发字符
-        if (!CommentSign.PREFIX.getText().equals(suspectText)) {
+        if (!CommentSign.TRIGGER.getText().equals(suspectText)) {
             return Result.Continue;
         }
 
@@ -52,12 +57,15 @@ public class TriggerEnterHandlerDelegate extends BaseEnterHandlerDelegate {
         CaretModel caretModel = editor.getCaretModel();
         int writeOffset = document.getLineStartOffset(caretModel.getLogicalPosition().line + 1);
         Runnable runnable = () -> {
+            int offset = writeOffset - CommentSign.TRIGGER.getText().length() - 1;
+            // 清空触发字符
+            document.deleteString(offset, writeOffset);
             // 倒序写入
             for (int i = commentList.size() - 1; i >= 0; i -= 1) {
-                document.insertString(writeOffset, commentList.get(i) + "\n");
+                document.insertString(offset, commentList.get(i) + "\n");
             }
             // 光标移动
-            caretModel.moveToOffset(writeOffset + CommentSign.BODY.getText().length());
+            caretModel.moveToOffset(offset + CommentSign.BODY.getText().length());
         };
         WriteCommandAction.runWriteCommandAction(file.getProject(), runnable);
         return Result.Stop;

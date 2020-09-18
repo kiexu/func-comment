@@ -32,7 +32,7 @@ public class BodyEnterHandlerDelegateService {
             }
             currentLine -= 1;
         }
-        if (!CommentSign.PREFIX.getText().equals(DocumentUtil.getText(document, currentLine))) {
+        if (!CommentSign.TRIGGER.getText().equals(DocumentUtil.getText(document, currentLine))) {
             return false;
         }
 
