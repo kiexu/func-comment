@@ -19,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * 用于注释内部换行自动添加注释体前缀
+ *
+ * @deprecated 升级为斜杠注释后无需此功能
  */
 public class BodyEnterHandlerDelegate extends BaseEnterHandlerDelegate {
 

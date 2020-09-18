@@ -60,13 +60,25 @@ public class FuncDeclInfo {
                 String[] parts = actualReturnStr.split(",");
                 for (String part : parts) {
                     String[] innerParts = part.trim().split("\\s+");
-                    if (innerParts.length != 2) {
-                        return false;
+                    switch (innerParts.length) {
+                        case 1:
+                            // (string, error)形式
+                            if (maxReturnTypeLength < innerParts[0].length()) {
+                                maxReturnTypeLength = innerParts[0].length();
+                            }
+                            returnInfoList.add(new FuncFieldInfo(FieldType.RETURN, innerParts[0], ""));
+                            break;
+                        case 2:
+                            // (resp string, err error)形式
+                            if (maxReturnTypeLength < innerParts[1].length()) {
+                                maxReturnTypeLength = innerParts[1].length();
+                            }
+                            returnInfoList.add(new FuncFieldInfo(FieldType.RETURN, innerParts[1], innerParts[0]));
+                            break;
+                        default:
+                            return false;
                     }
-                    if (maxReturnTypeLength < innerParts[1].length()) {
-                        maxReturnTypeLength = innerParts[1].length();
-                    }
-                    returnInfoList.add(new FuncFieldInfo(FieldType.RETURN, innerParts[1], innerParts[0]));
+
                 }
             } else {
                 // 不存在括号, 简单检查后放入结果

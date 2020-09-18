@@ -40,6 +40,8 @@ public class StringUtilTest {
             "func Add() int {",
             "func Add() (i int) {",
             "func Add(uid int64) (i int) {",
+            "func Add(uid int64) (i int, j string) {",
+            "func Add(uid int64) (int, string) {",
             "func Add(    uid     int64     ) {",
             "func Add() {",
             "func Add(   ) {",

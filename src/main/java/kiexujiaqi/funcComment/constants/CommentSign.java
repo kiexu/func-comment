@@ -6,13 +6,18 @@ public enum CommentSign {
     SPACE(" "),
 
     // 注释体组件
-    PREFIX("/**"),
+    TRIGGER("//"),
     BODY(" * "),
     BOTTOM(" */"),
+    DOUBLE_SLASH("// "),
 
     // 文本前缀
-    PARAM_SIGN("param: "),
-    RETURN_SIGN("return: ");
+    PARAM_SIGN("param:"),
+    RETURN_SIGN("return:"),
+
+    // 待忽略的数据类型
+    GO_CONTEXT("context.Context"),
+    GO_ERROR("error");
 
     private String text;
 

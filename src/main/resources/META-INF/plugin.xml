@@ -3,7 +3,7 @@
     <name>Func Comment</name>
     <vendor email="xujiaqi0830@163.com" url="https://github.com/kiexu/func-comment">Kie Xu</vendor>
 
-    <version>v0.1-alpha</version>
+    <version>v0.2-alpha</version>
 
     <change-notes><![CDATA[<html>
       initial release of func comment plugin.<br/>
@@ -20,12 +20,13 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <enterHandlerDelegate implementation="kiexujiaqi.funcComment.extensions.TriggerEnterHandlerDelegate"/>
-        <enterHandlerDelegate implementation="kiexujiaqi.funcComment.extensions.BodyEnterHandlerDelegate"/>
+        <!--升级为斜杠注释后无需此功能-->
+        <!--<enterHandlerDelegate implementation="kiexujiaqi.funcComment.extensions.BodyEnterHandlerDelegate"/>-->
     </extensions>
 
     <actions>
-        <action id="func-comment.DaemonAction" class="kiexujiaqi.funcComment.actions.DaemonAction" text="daemon action"
-                description="daemon action">
+        <action id="func-comment.DaemonAction" class="kiexujiaqi.funcComment.actions.DaemonAction" text="Daemon Action"
+                description="Daemon action">
         </action>
     </actions>
 </idea-plugin>
