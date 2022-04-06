@@ -1,12 +1,12 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.22'
+    id 'org.jetbrains.intellij' version '0.6.5'
 }
 
 group 'com.kiexujiaqi'
 version '1.2-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 repositories {
     maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
@@ -30,7 +30,7 @@ buildSearchableOptions {
 }
 
 intellij {
-    version 'IC-2020.2'
+    version 'IC-2021.3.3'
     // for a full list of IntelliJ IDEA releases please see https://www.jetbrains.com/intellij-repository/releases
     pluginName 'func-comment'
     intellij.updateSinceUntilBuild false

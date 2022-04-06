@@ -29,6 +29,7 @@ public class StringUtil {
      * @return 是否触发
      * @deprecated
      */
+    @Deprecated
     public static boolean hasSuffix(String suspectText, String suffix) {
         if (StringUtils.isBlank(suspectText) || StringUtils.isBlank(suffix)) {
             return false;

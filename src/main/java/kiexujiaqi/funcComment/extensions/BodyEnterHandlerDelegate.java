@@ -2,15 +2,14 @@ package kiexujiaqi.funcComment.extensions;
 
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
 import com.intellij.openapi.util.Ref;
 import com.intellij.psi.PsiFile;
-import kiexujiaqi.funcComment.enums.FileExt;
 import kiexujiaqi.funcComment.constants.CommentSign;
+import kiexujiaqi.funcComment.enums.FileExt;
 import kiexujiaqi.funcComment.extensions.base.BaseEnterHandlerDelegate;
 import kiexujiaqi.funcComment.extensions.service.BodyEnterHandlerDelegateService;
 import kiexujiaqi.funcComment.utils.DocumentUtil;
@@ -22,9 +21,8 @@ import org.jetbrains.annotations.NotNull;
  *
  * @deprecated 升级为斜杠注释后无需此功能
  */
+@Deprecated
 public class BodyEnterHandlerDelegate extends BaseEnterHandlerDelegate {
-
-    private static final Logger LOG = Logger.getInstance(BodyEnterHandlerDelegate.class);
 
     @Override
     public Result preprocessEnter(@NotNull PsiFile file, @NotNull Editor editor, @NotNull Ref<Integer> caretOffset, @NotNull Ref<Integer> caretAdvance, @NotNull DataContext dataContext, EditorActionHandler originalHandler) {
