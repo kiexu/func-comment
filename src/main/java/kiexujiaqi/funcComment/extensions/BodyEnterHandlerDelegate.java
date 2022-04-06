@@ -36,7 +36,7 @@ public class BodyEnterHandlerDelegate extends BaseEnterHandlerDelegate {
 
         // 获取并检查当前行字符
         String suspectText = DocumentUtil.getLineWhilePreprocessEnter(editor, 0);
-        if (CommentSign.BOTTOM.getText().equals(suspectText) || !StringUtil.isCommentBody(suspectText)) {
+        if (CommentSign.BOTTOM.getText().equals(suspectText) || StringUtil.notCommentBody(suspectText)) {
             return Result.Continue;
         }
 

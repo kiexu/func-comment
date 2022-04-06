@@ -53,16 +53,15 @@ public class StringUtilTest {
     public void parseFuncDecl() {
         for (String input : inputList) {
             Matcher matcher = StringUtil.matchDeclStr(input);
-            String p = "";
-            String r = "";
+            String n = "nil";
+            String p = "nil";
+            String r = "nil";
             if (matcher.matches()) {
+                n = matcher.group(RegexSign.FUNC_NAME_GROUP.getText());
                 p = matcher.group(RegexSign.PARAM_GROUP.getText());
                 r = matcher.group(RegexSign.RETURN_GROUP.getText());
-            } else {
-                p = "nil";
-                r = "nil";
             }
-            System.out.println(String.format("input=%s||paramStr=%s||returnStr=%s", input, p, r));
+            System.out.printf("input=%s||name=%s||paramStr=%s||returnStr=%s%n", input, n, p, r);
         }
     }
 
@@ -72,14 +71,13 @@ public class StringUtilTest {
             Optional<FuncDeclInfo> opt = StringUtil.parseDeclStr(input);
             if (opt.isPresent()) {
                 FuncDeclInfo info = opt.get();
-                System.out.println(String.format("input=%s||paramStr=%s||returnStr=%s", input,
+                System.out.printf("input=%s||paramStr=%s||returnStr=%s%n", input,
                         Joiner.on(",").join(info.getParamInfoList()),
                         Joiner.on(",").join(info.getReturnInfoList())
-                ));
+                );
             } else {
-                System.out.println(String.format("input=%s||paramStr=%s||returnStr=%s", input, "nil", "nil"));
+                System.out.printf("input=%s||paramStr=%s||returnStr=%s%n", input, "nil", "nil");
             }
-
         }
     }
 }

@@ -3,7 +3,7 @@
     <name>Func Comment</name>
     <vendor email="xujiaqi0830@163.com" url="https://github.com/kiexu/func-comment">Kie Xu</vendor>
 
-    <version>v0.2-alpha</version>
+    <version>1.2-SNAPSHOT</version>
 
     <change-notes><![CDATA[<html>
       initial release of func comment plugin.<br/>

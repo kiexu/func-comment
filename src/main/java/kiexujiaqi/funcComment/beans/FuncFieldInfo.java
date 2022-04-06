@@ -1,12 +1,12 @@
 package kiexujiaqi.funcComment.beans;
 
 import kiexujiaqi.funcComment.enums.FieldType;
-
-import java.util.StringJoiner;
+import lombok.Data;
 
 /**
  * 参数信息
  */
+@Data
 public class FuncFieldInfo {
 
     // 字段类型
@@ -22,37 +22,5 @@ public class FuncFieldInfo {
         this.fieldType = fieldType;
         this.type = type;
         this.name = name;
-    }
-
-    public FieldType getFieldType() {
-        return fieldType;
-    }
-
-    public void setFieldType(FieldType fieldType) {
-        this.fieldType = fieldType;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", FuncFieldInfo.class.getSimpleName() + "[", "]")
-                .add("type='" + type + "'")
-                .add("name='" + name + "'")
-                .toString();
     }
 }

@@ -2,6 +2,7 @@ package kiexujiaqi.funcComment.constants;
 
 public enum RegexSign {
 
+    FUNC_NAME_GROUP("name"),
     PARAM_GROUP("params"),
     RETURN_GROUP("returns");
 

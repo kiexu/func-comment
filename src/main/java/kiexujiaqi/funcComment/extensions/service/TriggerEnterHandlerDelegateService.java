@@ -3,8 +3,8 @@ package kiexujiaqi.funcComment.extensions.service;
 import kiexujiaqi.funcComment.beans.FuncDeclInfo;
 import kiexujiaqi.funcComment.beans.FuncFieldInfo;
 import kiexujiaqi.funcComment.beans.SuspectDeclResp;
-import kiexujiaqi.funcComment.enums.FieldType;
 import kiexujiaqi.funcComment.constants.CommentSign;
+import kiexujiaqi.funcComment.enums.FieldType;
 import kiexujiaqi.funcComment.utils.StringUtil;
 
 import java.util.ArrayList;
@@ -26,11 +26,6 @@ public class TriggerEnterHandlerDelegateService {
             return comments;
         }
         List<String> rawComments = declResp.getRawComments();
-        // 参数列表不为零则额外增加空行
-        if (rawComments.size() != 0) {
-            comments.add(CommentSign.DOUBLE_SLASH.getText());
-        }
-        comments.add(CommentSign.DOUBLE_SLASH.getText());
         for (String raw : rawComments) {
             comments.add(CommentSign.DOUBLE_SLASH.getText() + raw);
         }
@@ -50,6 +45,9 @@ public class TriggerEnterHandlerDelegateService {
             return new SuspectDeclResp(false, new ArrayList<>());
         }
         FuncDeclInfo info = infoOpt.get();
+        // 参数名, 后加一空格
+        resList.add(info.getFuncName() + CommentSign.SPACE.getText());
+        resList.add("");
         // 参数注释
         for (int i = 0; i < info.getParamInfoList().size(); i += 1) {
             FuncFieldInfo paramInfo = info.getParamInfoList().get(i);
