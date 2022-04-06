@@ -8,10 +8,9 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
 import com.intellij.openapi.util.Ref;
-import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiFile;
-import kiexujiaqi.funcComment.enums.FileExt;
 import kiexujiaqi.funcComment.constants.CommentSign;
+import kiexujiaqi.funcComment.enums.FileExt;
 import kiexujiaqi.funcComment.extensions.base.BaseEnterHandlerDelegate;
 import kiexujiaqi.funcComment.extensions.service.TriggerEnterHandlerDelegateService;
 import kiexujiaqi.funcComment.utils.DocumentUtil;
@@ -65,7 +64,7 @@ public class TriggerEnterHandlerDelegate extends BaseEnterHandlerDelegate {
                 document.insertString(offset, commentList.get(i) + "\n");
             }
             // 光标移动
-            caretModel.moveToOffset(offset + CommentSign.BODY.getText().length());
+            caretModel.moveToOffset(offset + commentList.get(0).length());
         };
         WriteCommandAction.runWriteCommandAction(file.getProject(), runnable);
         return Result.Stop;

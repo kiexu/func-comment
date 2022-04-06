@@ -27,7 +27,7 @@ public class BodyEnterHandlerDelegateService {
         int currentLine = startLine;
         while (currentLine > 0) {
             String line = DocumentUtil.getText(document, currentLine);
-            if (!StringUtil.isCommentBody(line)) {
+            if (StringUtil.notCommentBody(line)) {
                 break;
             }
             currentLine -= 1;
@@ -40,7 +40,7 @@ public class BodyEnterHandlerDelegateService {
         currentLine = startLine;
         while (currentLine < maxLineIndex) {
             String line = DocumentUtil.getText(document, currentLine);
-            if (!StringUtil.isCommentBody(line)) {
+            if (StringUtil.notCommentBody(line)) {
                 break;
             }
             currentLine += 1;

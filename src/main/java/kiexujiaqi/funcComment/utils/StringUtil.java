@@ -15,8 +15,8 @@ public class StringUtil {
 
     // 匹配参数字符串
     // todo 能否直接捕获数组元素?
-    private static final String FUNC_PATTERN = String.format("^func\\s*(?:\\(.*\\))?\\s*[^\\s\\(]+\\s*\\((?<%s>[\\s\\S]*?)\\)\\s*(?<%s>(?:\\([\\s\\S]+\\))|[^\\s]*)\\s*\\{\\s*$",
-            RegexSign.PARAM_GROUP.getText(), RegexSign.RETURN_GROUP.getText());
+    private static final String FUNC_PATTERN = String.format("^func\\s*(?:\\(.*\\))?\\s*(?<%s>[^\\s\\(]+)\\s*\\((?<%s>[\\s\\S]*?)\\)\\s*(?<%s>(?:\\([\\s\\S]+\\))|[^\\s]*)\\s*\\{\\s*$",
+            RegexSign.FUNC_NAME_GROUP.getText(), RegexSign.PARAM_GROUP.getText(), RegexSign.RETURN_GROUP.getText());
 
     // 匹配换行
     private static final String ENTER_PATTERN = "^\\s\\*[\\s\\S]*$";
@@ -29,6 +29,7 @@ public class StringUtil {
      * @return 是否触发
      * @deprecated
      */
+    @Deprecated
     public static boolean hasSuffix(String suspectText, String suffix) {
         if (StringUtils.isBlank(suspectText) || StringUtils.isBlank(suffix)) {
             return false;
@@ -55,7 +56,11 @@ public class StringUtil {
         if (!matcher.matches()) {
             return Optional.empty();
         }
-        FuncDeclInfo info = new FuncDeclInfo(matcher.group(RegexSign.PARAM_GROUP.getText()), matcher.group(RegexSign.RETURN_GROUP.getText()));
+        FuncDeclInfo info = new FuncDeclInfo(
+                matcher.group(RegexSign.FUNC_NAME_GROUP.getText()),
+                matcher.group(RegexSign.PARAM_GROUP.getText()),
+                matcher.group(RegexSign.RETURN_GROUP.getText())
+        );
         if (!info.tryParse()) {
             return Optional.empty();
         }
@@ -78,7 +83,7 @@ public class StringUtil {
      * @param line 一行字符串
      * @return 是否为注释体
      */
-    public static boolean isCommentBody(String line) {
-        return Pattern.matches(ENTER_PATTERN, line);
+    public static boolean notCommentBody(String line) {
+        return !Pattern.matches(ENTER_PATTERN, line);
     }
 }

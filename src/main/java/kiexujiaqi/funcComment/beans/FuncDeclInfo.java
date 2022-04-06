@@ -1,13 +1,17 @@
 package kiexujiaqi.funcComment.beans;
 
 import kiexujiaqi.funcComment.enums.FieldType;
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
+@Data
 public class FuncDeclInfo {
+
+    // 参数名
+    private String funcName;
 
     // 参数字符串
     private String paramStr;
@@ -27,7 +31,8 @@ public class FuncDeclInfo {
     // 最大返回值类型长度
     private int maxReturnTypeLength;
 
-    public FuncDeclInfo(String paramStr, String returnStr) {
+    public FuncDeclInfo(String funcName, String paramStr, String returnStr) {
+        this.funcName = funcName;
         this.paramStr = paramStr;
         this.returnStr = returnStr;
     }
@@ -90,63 +95,5 @@ public class FuncDeclInfo {
 
         }
         return true;
-    }
-
-    public String getParamStr() {
-        return paramStr;
-    }
-
-    public void setParamStr(String paramStr) {
-        this.paramStr = paramStr;
-    }
-
-    public String getReturnStr() {
-        return returnStr;
-    }
-
-    public void setReturnStr(String returnStr) {
-        this.returnStr = returnStr;
-    }
-
-    public List<FuncFieldInfo> getParamInfoList() {
-        return paramInfoList;
-    }
-
-    public void setParamInfoList(List<FuncFieldInfo> paramInfoList) {
-        this.paramInfoList = paramInfoList;
-    }
-
-    public List<FuncFieldInfo> getReturnInfoList() {
-        return returnInfoList;
-    }
-
-    public void setReturnInfoList(List<FuncFieldInfo> returnInfoList) {
-        this.returnInfoList = returnInfoList;
-    }
-
-    public int getMaxParamTypeLength() {
-        return maxParamTypeLength;
-    }
-
-    public void setMaxParamTypeLength(int maxParamTypeLength) {
-        this.maxParamTypeLength = maxParamTypeLength;
-    }
-
-    public int getMaxReturnTypeLength() {
-        return maxReturnTypeLength;
-    }
-
-    public void setMaxReturnTypeLength(int maxReturnTypeLength) {
-        this.maxReturnTypeLength = maxReturnTypeLength;
-    }
-
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", FuncDeclInfo.class.getSimpleName() + "[", "]")
-                .add("paramStr='" + paramStr + "'")
-                .add("returnStr='" + returnStr + "'")
-                .add("paramInfoList=" + paramInfoList)
-                .add("returnInfoList=" + returnInfoList)
-                .toString();
     }
 }
