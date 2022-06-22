@@ -16,9 +16,19 @@
     <!--http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html-->
     <depends>com.intellij.modules.lang</depends>
 
-    <idea-version since-build="172.0"/>
+    <idea-version since-build="193.5233.102"/>
 
     <extensions defaultExtensionNs="com.intellij">
+
+        <!--配置-->
+        <applicationConfigurable parentId="appearance"
+                                 instance="kiexujiaqi.funcComment.configs.BaseConfigurable"
+                                 id="org.intellij.sdk.settings.AppSettingsConfigurable"
+                                 dynamic="true"
+                                 displayName="Func Comment"/>
+        <applicationService
+                serviceImplementation="kiexujiaqi.funcComment.configs.BaseState" />
+
         <enterHandlerDelegate implementation="kiexujiaqi.funcComment.extensions.TriggerEnterHandlerDelegate"/>
         <!--升级为斜杠注释后无需此功能-->
         <!--<enterHandlerDelegate implementation="kiexujiaqi.funcComment.extensions.BodyEnterHandlerDelegate"/>-->
