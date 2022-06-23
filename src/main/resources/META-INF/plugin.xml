@@ -3,20 +3,20 @@
     <name>Func Comment</name>
     <vendor email="xujiaqi0830@163.com" url="https://github.com/kiexu/func-comment">Kie Xu</vendor>
 
-    <version>1.2-SNAPSHOT</version>
+    <version>1.3-SNAPSHOT</version>
 
     <change-notes><![CDATA[<html>
-      initial release of func comment plugin.<br/>
+      add custom config.<br/>
     </html>]]></change-notes>
 
     <description><![CDATA[<html>
-      A plugin to help add comment above function definition in GoLand.<br/>
+      A plugin to help add comment above function definition of Go Language.<br/>
     </html>]]></description>
 
     <!--http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html-->
     <depends>com.intellij.modules.lang</depends>
 
-    <idea-version since-build="193.5233.102"/>
+    <idea-version since-build="203.5981.155"/>
 
     <extensions defaultExtensionNs="com.intellij">
 
@@ -27,7 +27,11 @@
                                  dynamic="true"
                                  displayName="Func Comment"/>
         <applicationService
-                serviceImplementation="kiexujiaqi.funcComment.configs.BaseState" />
+                serviceImplementation="kiexujiaqi.funcComment.configs.BaseState"/>
+
+        <!--配置提醒-->
+        <postStartupActivity implementation="kiexujiaqi.funcComment.notice.ConfigNotificationActivity" />
+        <notificationGroup id="Func Comment config notice" displayType="STICKY_BALLOON"/>
 
         <enterHandlerDelegate implementation="kiexujiaqi.funcComment.extensions.TriggerEnterHandlerDelegate"/>
         <!--升级为斜杠注释后无需此功能-->

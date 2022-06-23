@@ -23,6 +23,8 @@ public class BaseConfigurationComponent {
     private final JBCheckBox printParams = new JBCheckBox("Print param");
     private final JBCheckBox printReturns = new JBCheckBox("Print return symbol");
 
+    private final JBCheckBox showNotice = new JBCheckBox("Show config notice on IDE startup");
+
     // 警告文字
     private final JLabel uncheckAllWarning = new JLabel("Func Comment will not work due to unchecking all");
 
@@ -42,6 +44,8 @@ public class BaseConfigurationComponent {
         builder.addComponent(createTitlePanel());
         builder.addSeparator();
         builder.addComponent(createPrintPanel());
+        builder.addSeparator();
+        builder.addComponent(createNoticePanel());
         builder.addVerticalGap(1);
         builder.addComponent(createWarningPanel());
         basePanel = new JPanel(new BorderLayout());
@@ -55,6 +59,7 @@ public class BaseConfigurationComponent {
         printFuncName.setSelected(state.isPrintFuncName());
         printParams.setSelected(state.isPrintParams());
         printReturns.setSelected(state.isPrintReturnSymbol());
+        showNotice.setSelected(state.isConfigNotice());
         uncheckAllWarning.setVisible(state.allBlocked());
     }
 
@@ -89,6 +94,18 @@ public class BaseConfigurationComponent {
         return panel;
     }
 
+    // 提醒重开
+    private JPanel createNoticePanel() {
+
+        showNotice.setToolTipText("Show config sticky balloon on startup if checked");
+
+        final JPanel panel = new JPanel(new GridLayout(1, 1));
+        panel.add(showNotice);
+
+        return panel;
+    }
+
+    // 警告栏
     private JLabel createWarningPanel() {
         uncheckAllWarning.setFont(uncheckAllWarning.getFont().deriveFont(Font.BOLD));
         uncheckAllWarning.setForeground(JBColor.RED);

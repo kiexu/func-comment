@@ -25,6 +25,9 @@ public class BaseState implements PersistentStateComponent<BaseState> {
     // 打印返回标记
     private boolean printReturnSymbol = true;
 
+    // 弹出配置提醒
+    private boolean configNotice = true;
+
     public static BaseState getInstance() {
         return ApplicationManager.getApplication().getService(BaseState.class);
     }

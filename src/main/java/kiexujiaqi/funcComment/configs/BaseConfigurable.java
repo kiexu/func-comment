@@ -37,7 +37,8 @@ public class BaseConfigurable implements Configurable {
         final BaseState state = BaseState.getInstance();
         return comp.getPrintFuncName().isSelected() != state.isPrintFuncName()
                 || comp.getPrintParams().isSelected() != state.isPrintParams()
-                || comp.getPrintReturns().isSelected() != state.isPrintReturnSymbol();
+                || comp.getPrintReturns().isSelected() != state.isPrintReturnSymbol()
+                || comp.getShowNotice().isSelected() != state.isConfigNotice();
     }
 
     @Override
@@ -49,6 +50,7 @@ public class BaseConfigurable implements Configurable {
         state.setPrintFuncName(comp.getPrintFuncName().isSelected());
         state.setPrintParams(comp.getPrintParams().isSelected());
         state.setPrintReturnSymbol(comp.getPrintReturns().isSelected());
+        state.setConfigNotice(comp.getShowNotice().isSelected());
     }
 
     @Override
