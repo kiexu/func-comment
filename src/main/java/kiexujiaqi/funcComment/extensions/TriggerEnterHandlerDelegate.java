@@ -9,6 +9,7 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
 import com.intellij.openapi.util.Ref;
 import com.intellij.psi.PsiFile;
+import kiexujiaqi.funcComment.configs.BaseState;
 import kiexujiaqi.funcComment.constants.CommentSign;
 import kiexujiaqi.funcComment.enums.FileExt;
 import kiexujiaqi.funcComment.extensions.base.BaseEnterHandlerDelegate;
@@ -31,6 +32,10 @@ public class TriggerEnterHandlerDelegate extends BaseEnterHandlerDelegate {
 
         // 前置检查
         if (!checkContinue(file, editor, FileExt.GO.getExtName())) {
+            return Result.Continue;
+        }
+
+        if (BaseState.getInstance().allBlocked()) {
             return Result.Continue;
         }
 

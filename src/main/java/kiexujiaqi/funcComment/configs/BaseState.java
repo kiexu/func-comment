@@ -22,8 +22,8 @@ public class BaseState implements PersistentStateComponent<BaseState> {
     // 打印参数列表
     private boolean printParams = true;
 
-    // 打印返回值列表
-    private boolean printReturns = true;
+    // 打印返回标记
+    private boolean printReturnSymbol = true;
 
     public static BaseState getInstance() {
         return ApplicationManager.getApplication().getService(BaseState.class);
@@ -38,5 +38,9 @@ public class BaseState implements PersistentStateComponent<BaseState> {
     @Override
     public void loadState(@NotNull BaseState baseState) {
         XmlSerializerUtil.copyBean(baseState, this);
+    }
+
+    public boolean allBlocked() {
+        return !(printFuncName || printParams || printReturnSymbol);
     }
 }

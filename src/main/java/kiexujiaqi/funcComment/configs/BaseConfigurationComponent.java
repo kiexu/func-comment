@@ -1,11 +1,14 @@
 package kiexujiaqi.funcComment.configs;
 
+import com.intellij.ui.JBColor;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.util.ui.FormBuilder;
 import lombok.Data;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @Data
 public class BaseConfigurationComponent {
@@ -18,7 +21,17 @@ public class BaseConfigurationComponent {
     // 选项
     private final JBCheckBox printFuncName = new JBCheckBox("Print function name");
     private final JBCheckBox printParams = new JBCheckBox("Print param");
-    private final JBCheckBox printReturns = new JBCheckBox("Print return value");
+    private final JBCheckBox printReturns = new JBCheckBox("Print return symbol");
+
+    // 警告文字
+    private final JLabel uncheckAllWarning = new JLabel("Func Comment will not work due to unchecking all");
+
+    // ActionListener
+    private final ActionListener allBlockedListener = a -> {
+        if (a != null && a.getID() == ActionEvent.ACTION_PERFORMED) {
+            uncheckAllWarning.setVisible(!(printFuncName.isSelected() || printParams.isSelected() || printReturns.isSelected()));
+        }
+    };
 
     public BaseConfigurationComponent() {
         InitUI();
@@ -26,12 +39,13 @@ public class BaseConfigurationComponent {
 
     private void InitUI() {
         final FormBuilder builder = FormBuilder.createFormBuilder();
-        // todo
         builder.addComponent(createTitlePanel());
-        builder.addVerticalGap(2);
         builder.addSeparator();
         builder.addComponent(createPrintPanel());
-        basePanel = builder.getPanel();
+        builder.addVerticalGap(1);
+        builder.addComponent(createWarningPanel());
+        basePanel = new JPanel(new BorderLayout());
+        basePanel.add(builder.getPanel(), BorderLayout.NORTH);
     }
 
     public void updateUI(final BaseState state) {
@@ -40,7 +54,8 @@ public class BaseConfigurationComponent {
         }
         printFuncName.setSelected(state.isPrintFuncName());
         printParams.setSelected(state.isPrintParams());
-        printReturns.setSelected(state.isPrintReturns());
+        printReturns.setSelected(state.isPrintReturnSymbol());
+        uncheckAllWarning.setVisible(state.allBlocked());
     }
 
     public JComponent getPanel() {
@@ -60,7 +75,11 @@ public class BaseConfigurationComponent {
 
         printFuncName.setToolTipText("Print the function name if checked");
         printParams.setToolTipText("Print the param(s) if checked");
-        printReturns.setToolTipText("Print the return value(s) if checked");
+        printReturns.setToolTipText("Print the return symbol if checked");
+
+        printFuncName.addActionListener(allBlockedListener);
+        printParams.addActionListener(allBlockedListener);
+        printReturns.addActionListener(allBlockedListener);
 
         final JPanel panel = new JPanel(new GridLayout(3, 1));
         panel.add(printFuncName);
@@ -68,5 +87,11 @@ public class BaseConfigurationComponent {
         panel.add(printReturns);
 
         return panel;
+    }
+
+    private JLabel createWarningPanel() {
+        uncheckAllWarning.setFont(uncheckAllWarning.getFont().deriveFont(Font.BOLD));
+        uncheckAllWarning.setForeground(JBColor.RED);
+        return uncheckAllWarning;
     }
 }

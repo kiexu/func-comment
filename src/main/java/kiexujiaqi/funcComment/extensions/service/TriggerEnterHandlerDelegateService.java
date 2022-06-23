@@ -3,6 +3,7 @@ package kiexujiaqi.funcComment.extensions.service;
 import kiexujiaqi.funcComment.beans.FuncDeclInfo;
 import kiexujiaqi.funcComment.beans.FuncFieldInfo;
 import kiexujiaqi.funcComment.beans.SuspectDeclResp;
+import kiexujiaqi.funcComment.configs.BaseState;
 import kiexujiaqi.funcComment.constants.CommentSign;
 import kiexujiaqi.funcComment.enums.FieldType;
 import kiexujiaqi.funcComment.utils.StringUtil;
@@ -46,23 +47,40 @@ public class TriggerEnterHandlerDelegateService {
         }
         FuncDeclInfo info = infoOpt.get();
         // 参数名, 后加一空格
-        resList.add(info.getFuncName() + CommentSign.SPACE.getText());
-        resList.add("");
+        if (BaseState.getInstance().isPrintFuncName()) {
+            resList.add(info.getFuncName() + CommentSign.SPACE.getText());
+        } else {
+            resList.add("");
+        }
+
+        boolean printParams = BaseState.getInstance().isPrintParams();
+        boolean printReturns = BaseState.getInstance().isPrintReturnSymbol();
+
+        if (printParams || printReturns) {
+            resList.add("");
+        }
+
         // 参数注释
-        for (int i = 0; i < info.getParamInfoList().size(); i += 1) {
-            FuncFieldInfo paramInfo = info.getParamInfoList().get(i);
-            // 过滤掉第一个context入参
-            if (i == 0 && CommentSign.GO_CONTEXT.getText().equals(paramInfo.getType())) {
-                continue;
+        if (printParams) {
+            for (int i = 0; i < info.getParamInfoList().size(); i += 1) {
+                FuncFieldInfo paramInfo = info.getParamInfoList().get(i);
+                // 过滤掉第一个context入参
+                if (i == 0 && CommentSign.GO_CONTEXT.getText().equals(paramInfo.getType())) {
+                    continue;
+                }
+                resList.add(buildCommentLine(CommentSign.PARAM_SIGN.getText(), paramInfo));
             }
-            resList.add(buildCommentLine(CommentSign.PARAM_SIGN.getText(), paramInfo));
         }
-        // 返回值注释
-        // 由于error默认无需特殊注释, 无论几个返回值均只打印一行, 供用户自行选用
-        List<FuncFieldInfo> retList = info.getReturnInfoList();
-        if (!retList.isEmpty() && !(retList.size() == 1 && CommentSign.GO_ERROR.getText().equals(retList.get(0).getType()))) {
-            resList.add(CommentSign.RETURN_SIGN.getText() + CommentSign.SPACE.getText());
+
+        if (printReturns) {
+            // 返回值注释
+            // 由于error默认无需特殊注释, 无论几个返回值均只打印一行, 供用户自行选用
+            List<FuncFieldInfo> retList = info.getReturnInfoList();
+            if (!retList.isEmpty() && !(retList.size() == 1 && CommentSign.GO_ERROR.getText().equals(retList.get(0).getType()))) {
+                resList.add(CommentSign.RETURN_SIGN.getText() + CommentSign.SPACE.getText());
+            }
         }
+
         return new SuspectDeclResp(true, resList);
     }
 
