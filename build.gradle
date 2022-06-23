@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.kiexujiaqi'
-version '1.2-SNAPSHOT'
+version '1.3-SNAPSHOT'
 
 sourceCompatibility = 11
 
@@ -38,5 +38,5 @@ intellij {
 
 patchPluginXml {
     changeNotes """
-      add function name.<br>"""
+      add configs.<br>"""
 }
