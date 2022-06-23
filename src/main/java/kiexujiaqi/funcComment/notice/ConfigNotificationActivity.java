@@ -21,14 +21,36 @@ public class ConfigNotificationActivity implements StartupActivity.DumbAware {
 
     @Override
     public void runActivity(@NotNull Project project) {
+        // 全部关闭时为最高优先级提示
+        if (BaseState.getInstance().allBlocked()) {
+            Notification blockNotice = NotificationGroupManager.getInstance().getNotificationGroup(CONFIG_GROUP_ID)
+                    .createNotification("Func Comment will not work due to unchecking all printing parts. " +
+                                    "recommend change configuration."
+                            , NotificationType.INFORMATION);
+            blockNotice.addAction(new DumbAwareAction("Go To Configuration...") {
+                        @Override
+                        public void actionPerformed(@NotNull final AnActionEvent e) {
+                            ShowSettingsUtil.getInstance().showSettingsDialog(project,
+                                    BaseConfigurable.class);
+                        }
+                    })
+                    .addAction(new DumbAwareAction("Let It Go", "Close this notification but see you after next startup", null) {
+                        @Override
+                        public void actionPerformed(@NotNull final AnActionEvent e) {
+                            blockNotice.expire();
+                        }
+                    })
+                    .notify(project);
+            return;
+        }
         if (!BaseState.getInstance().isConfigNotice()) {
             return;
         }
-        Notification notice = NotificationGroupManager.getInstance().getNotificationGroup(CONFIG_GROUP_ID)
+        Notification configNotice = NotificationGroupManager.getInstance().getNotificationGroup(CONFIG_GROUP_ID)
                 .createNotification("Welcome to Func Comment. you can separately configure whether " +
                                 "func name, params, return symbol will be printed in auto-generated comment."
                         , NotificationType.INFORMATION);
-        notice.addAction(new DumbAwareAction("Go To Configuration...") {
+        configNotice.addAction(new DumbAwareAction("Go To Configuration...") {
                     @Override
                     public void actionPerformed(@NotNull final AnActionEvent e) {
                         ShowSettingsUtil.getInstance().showSettingsDialog(project,
@@ -39,7 +61,7 @@ public class ConfigNotificationActivity implements StartupActivity.DumbAware {
                     @Override
                     public void actionPerformed(@NotNull final AnActionEvent e) {
                         BaseState.getInstance().setConfigNotice(false);
-                        notice.expire();
+                        configNotice.expire();
                     }
                 })
                 .notify(project);

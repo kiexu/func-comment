@@ -12,7 +12,7 @@ import javax.swing.*;
  */
 public class BaseConfigurable implements Configurable {
 
-    public static final String CONFIG_NAME = "Func Comment";
+    public static final String CONFIG_NAME = "Func Comment Plugin";
 
     private BaseConfigurationComponent comp;
 

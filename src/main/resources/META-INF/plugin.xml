@@ -25,7 +25,7 @@
                                  instance="kiexujiaqi.funcComment.configs.BaseConfigurable"
                                  id="org.intellij.sdk.settings.AppSettingsConfigurable"
                                  dynamic="true"
-                                 displayName="Func Comment"/>
+                                 displayName="Func Comment Plugin"/>
         <applicationService
                 serviceImplementation="kiexujiaqi.funcComment.configs.BaseState"/>
 
